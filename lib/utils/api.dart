@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:qjz/utils/application.dart';
 
 ///http请求
 class Api {
@@ -9,13 +10,14 @@ class Api {
 
   static Dio init() {
     Dio dio = Dio(BaseOptions(
-//        baseUrl: 'http://192.168.0.110:8080/',
-      baseUrl: 'http://qbt.qubaotang.cn/api/',
-        connectTimeout: 10000,
-        receiveTimeout: 10000
+      baseUrl: Application.isPro?'http://qbt.qubaotang.cn/api/':'http://192.168.0.110/',
+      connectTimeout: 10000,
+      receiveTimeout: 10000
     ));
-    //打印请求日志和结果
-//    dio.interceptors.add(LogInterceptor(responseBody: false));
+    //开发环境打印请求日志和结果
+    if(!Application.isPro){
+//      dio.interceptors.add(LogInterceptor(responseBody: false));
+    }
     return dio;
   }
 

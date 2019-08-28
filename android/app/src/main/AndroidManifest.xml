@@ -17,7 +17,7 @@
     <application
         android:usesCleartextTraffic="true"
         android:name="io.flutter.app.FlutterApplication"
-        android:label="趣宝堂"
+        android:label="趣兼职"
         android:icon="@mipmap/logo">
         <activity
             android:name=".MainActivity"

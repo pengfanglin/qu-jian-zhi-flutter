@@ -290,7 +290,7 @@ class SearchBodyState extends State<SearchBody> with SingleTickerProviderStateMi
                         width: 100,
                         height: 100,
                         margin: EdgeInsets.symmetric(horizontal: 10),
-                        child: ClipRRect(borderRadius: BorderRadius.circular(10), child: ImgCache(Application.STATIC_URL + data['img'])),
+                        child: ClipRRect(borderRadius: BorderRadius.circular(10), child: ImgCache(Application.staticUrl + data['img'])),
                       ),
                       Expanded(
                           flex: 1,

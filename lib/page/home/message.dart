@@ -5,11 +5,11 @@ import 'package:qjz/utils/api.dart';
 import 'package:qjz/utils/application.dart';
 import 'package:qjz/utils/toast_utils.dart';
 
-class ShopCar extends StatefulWidget {
-  createState() => ShopCarState();
+class Message extends StatefulWidget {
+  createState() => MessageState();
 }
 
-class ShopCarState extends State<ShopCar> with AutomaticKeepAliveClientMixin {
+class MessageState extends State<Message> with AutomaticKeepAliveClientMixin {
   bool _topRightClick = false;
   List<Widget> _list = List<Widget>();
   Set<int> _carIds = Set<int>();

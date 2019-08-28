@@ -9,7 +9,7 @@ class Order extends StatelessWidget{
     return SafeArea(
       child: Scaffold(
           backgroundColor: Colors.white,
-          body: WebView(Application.STATIC_URL+'html/goods/1.html')
+          body: WebView(Application.staticUrl+'html/goods/1.html')
       )
     );
   }

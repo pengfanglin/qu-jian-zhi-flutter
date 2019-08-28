@@ -7,7 +7,7 @@ import 'package:qjz/utils/api.dart';
 import 'package:qjz/utils/application.dart';
 import 'package:qjz/utils/toast_utils.dart';
 
-import 'goods_class.dart' show GoodsClassRoot;
+import '../goods_class.dart' show GoodsClassRoot;
 
 class Home extends StatefulWidget {
   createState()=>HomeState();
@@ -95,7 +95,7 @@ class BannerState extends State<Banner> {
       setState(() {
         swiper = Swiper(
             itemBuilder: (context, index) {
-              return ImgCache(Application.STATIC_URL + bannerList[index]['img']);
+              return ImgCache(Application.staticUrl + bannerList[index]['img']);
             },
             itemCount: bannerList.length,
             pagination: SwiperPagination(builder: DotSwiperPaginationBuilder(color: Colors.white, activeColor: Colors.red)),
@@ -104,7 +104,7 @@ class BannerState extends State<Banner> {
             autoplayDelay: 2000,
             onTap: (index){
               if(bannerList[index]['type']=='COMMON'){
-                ToastUtils.webView(Application.STATIC_URL+bannerList[index]['url'],title: '测试标题');
+                ToastUtils.webView(Application.staticUrl+bannerList[index]['url'],title: '测试标题');
               }else if(bannerList[index]['type']=='GOODS'){
                 Navigator.of(context).push(
                     MaterialPageRoute(
@@ -195,7 +195,7 @@ class GoodsClassState extends State<GoodsClass> {
             child: CircleAvatar(
                 backgroundColor: Application.themeColor,
                 radius: 30,
-                backgroundImage: goodsClass['type']=='assert'?AssetImage(goodsClass['img']):NetworkImage(Application.STATIC_URL + goodsClass['img'])
+                backgroundImage: goodsClass['type']=='assert'?AssetImage(goodsClass['img']):NetworkImage(Application.staticUrl + goodsClass['img'])
             ),
           ),
           Text(goodsClass['name'],style: TextStyle(color: Colors.black54),softWrap: false)
@@ -276,7 +276,7 @@ class HotGoodsState extends State<HotGoods> {
                               goods['img'],
                               fit: BoxFit.fill,
                             )
-                          : ImgCache(Application.STATIC_URL + goods['img']),
+                          : ImgCache(Application.staticUrl + goods['img']),
                     )),
                 Container(
                   padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),

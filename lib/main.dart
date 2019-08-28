@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:qjz/utils/application.dart';
-import 'page/find.dart' show Find;
-import 'page/home.dart' show Home;
-import 'page/my.dart' show My;
-import 'page/order.dart' show Order;
-import 'page/shop_car.dart' show ShopCar;
-import 'page/search.dart' show Search;
+import 'page/home/home.dart' show Home;
+import 'page/home/my.dart' show My;
+import 'page/home/message.dart' show Message;
 
 void main() {
   runApp(MaterialApp(
@@ -26,15 +23,15 @@ class TableMenuState extends State<TableMenu> {
   List<Widget> _pages;
   int _currentIndex;
   PageController _controller;
-  List<String> _menuImages = ['home', 'shop_car', 'order', 'find', 'my'];
-  List<String> _menuTitles = ['首页', '购物车', '订单', '发现', '我的'];
+  List<String> _menuImages = ['home', 'message', 'my'];
+  List<String> _menuTitles = ['首页', '消息',  '我的'];
 
   @override
   void initState() {
     super.initState();
     _currentIndex=0;
     _controller=PageController(initialPage: 0);
-    _pages=List<Widget>()..add(Home())..add(ShopCar())..add(Order())..add(Find())..add(My());
+    _pages=List<Widget>()..add(Home())..add(Message())..add(My());
     Application.bottomBarController=_controller;
   }
 

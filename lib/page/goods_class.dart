@@ -151,7 +151,7 @@ class GoodsClassBodyState extends State<GoodsClassBody> {
               Expanded(
                   flex: 1,
                   child: Container(
-                    child: ImgCache(Application.STATIC_URL + goodsClass['img']),
+                    child: ImgCache(Application.staticUrl + goodsClass['img']),
                   )),
               Container(
                 padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),

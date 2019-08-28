@@ -23,6 +23,8 @@ flutter:
   - res/images/icon/find_hover.png
   - res/images/icon/home.png
   - res/images/icon/home_hover.png
+  - res/images/icon/message.png
+  - res/images/icon/message_hover.png
   - res/images/icon/logo.png
   - res/images/icon/my.png
   - res/images/icon/my_hover.png
