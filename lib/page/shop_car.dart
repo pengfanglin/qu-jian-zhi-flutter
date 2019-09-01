@@ -37,7 +37,7 @@ class ShopCarState extends State<ShopCar> with AutomaticKeepAliveClientMixin {
   }
 
   @override
-  bool get wantKeepAlive => true;
+  bool get wantKeepAlive => false;
 
   Widget top() {
     return Container(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:amap_base_location/amap_base_location.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:qjz/component/widgets.dart';
 import 'package:qjz/page/search.dart' show Search;
@@ -8,53 +7,70 @@ import 'package:qjz/utils/application.dart';
 import 'package:qjz/utils/toast_utils.dart';
 
 
-class Home extends StatefulWidget {
+class Test1Home extends StatefulWidget {
   createState()=>HomeState();
 }
 
-class HomeState extends State<Home> with AutomaticKeepAliveClientMixin{
+class HomeState extends State<Test1Home> with AutomaticKeepAliveClientMixin{
+
+  bool isToTop = false;
+
+  //滚动控制器
+  ScrollController _controller;
+
+  void _onPressed() {
+    //回到ListView顶部
+    _controller.animateTo(0, duration: Duration(milliseconds: 200), curve: Curves.ease);
+  }
+
+  @override
+  void initState() {
+    _controller = ScrollController();
+    _controller.addListener(() {
+      if (_controller.offset > 1000) {
+        setState(() {
+          isToTop = true;
+        });
+      } else if (_controller.offset <= 500) {
+        setState(() {
+          isToTop = false;
+        });
+      }
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    _location();
     return Scaffold(
         backgroundColor: Colors.white,
         body: SafeArea(
-            child: ListView(
-              shrinkWrap: true,
-              physics: AlwaysScrollableScrollPhysics(),
-              children: <Widget>[
-                TopSearch(),
-                Banner(),
-                Slogan(),
-                PostTypeTab()
-                ],
-             )
+          child: CustomScrollView(
+            controller: _controller,
+            slivers: <Widget>[
+              SliverAppBar(
+                floating: true,
+                flexibleSpace:ListView(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  children: <Widget>[
+                    TopSearch(),
+                    Banner(),
+                    Slogan()
+                  ],
+                ),
+                expandedHeight: 200,
+              ),
+              PostTypeTab()
+            ],
+          )
         )
     );
   }
 
   @override
   bool get wantKeepAlive => false;
-
-  //初始化定位监听，
-  void _location() async {
-     AMapLocation map=AMapLocation();
-     map.init();
-     Future<Location> location=map.getLocation(LocationClientOptions());
-     location.then((location){
-       print(location.longitude);
-       print(location.latitude);
-       Application.lat = location.latitude;
-       Application.lng = location.longitude;
-     });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 }
 
 ///搜索框
@@ -62,30 +78,30 @@ class TopSearch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      child: GestureDetector(
-        onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-            return Search();
-          }));
-        },
-        child: Container(
-            height: 40,
-            color: Colors.white,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        child: GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(builder: (_) {
+              return Search();
+            }));
+          },
+          child: Container(
+              height: 40,
+              color: Colors.white,
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text('上海', style: TextStyle(color: Colors.black, fontSize: 30,fontWeight: FontWeight.w700)),
-                    Icon(Icons.arrow_drop_down, color: Colors.black,size: 30)
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Text('上海', style: TextStyle(color: Colors.black, fontSize: 30,fontWeight: FontWeight.w700)),
+                          Icon(Icons.arrow_drop_down, color: Colors.black,size: 30)
+                        ]
+                    ),
+                    Icon(Icons.search, color: Colors.black,size: 30)
                   ]
-                ),
-                Icon(Icons.search, color: Colors.black,size: 30)
-              ]
-            )),
-      )
+              )),
+        )
     );
   }
 }
@@ -148,22 +164,22 @@ class Slogan extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Container(
-            width: 160,
-            height: 72,
-            child: Image.asset('res/images/home/slogan_left.png')
-          ),
-          Container(
-              width: 160,
-              height: 72,
-              child: Image.asset('res/images/home/slogan_right.png')
-          )
-        ]
-      )
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Container(
+                  width: 160,
+                  height: 72,
+                  child: Image.asset('res/images/home/slogan_left.png')
+              ),
+              Container(
+                  width: 160,
+                  height: 72,
+                  child: Image.asset('res/images/home/slogan_right.png')
+              )
+            ]
+        )
     );
   }
 }
@@ -193,7 +209,7 @@ class PostTypeTabState extends State<PostTypeTab> with SingleTickerProviderState
         }
       }
     });
-  _postListController= ScrollController();
+    _postListController= ScrollController();
     _postListController.addListener(() {
       if (_postListController.position.pixels == _postListController.position.maxScrollExtent) {
         _page++;
@@ -357,7 +373,7 @@ class PostTypeTabState extends State<PostTypeTab> with SingleTickerProviderState
           ),
           Container(
               color: Color(0xFFEEEFFF),
-              child: ListView(shrinkWrap: true,physics: NeverScrollableScrollPhysics(), controller: _postListController, children: _postList)
+              child: ListView(shrinkWrap: true,physics: AlwaysScrollableScrollPhysics(), controller: _postListController, children: _postList)
           )
         ],
       ),
@@ -365,7 +381,7 @@ class PostTypeTabState extends State<PostTypeTab> with SingleTickerProviderState
 
   }
 
-    Widget _buildFilter(){
+  Widget _buildFilter(){
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[

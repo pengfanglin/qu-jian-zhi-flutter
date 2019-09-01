@@ -87,10 +87,10 @@ class Api {
     if(response==null||response.data==null){
       return Future.error('请求超时');
     }else {
-      if(response.data['status']){
+      if(response.data['code']==200){
         return Future.value(response.data['data']);
       }else{
-        return Future.error(response.data['error']);
+        return Future.error(response.data['message']);
       }
     }
   }
